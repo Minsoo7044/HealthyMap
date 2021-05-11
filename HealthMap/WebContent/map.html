@@ -3,8 +3,73 @@
 		<head>
 			<meta charset="utf-8">
 			<title>헬맵</title>
+			<style>
+				input[id="menuicon"] {
+					display:none;
+				}
+				input[id="menuicon"] + label {
+					display:block;
+					width:30px;
+					height:25px;
+					position:relative;
+					cursor:pointer;
+					z-index:3;
+				}
+				input[id="menuicon"] + label span {
+					display:block;
+					position:absolute;
+					width:100%;
+					height:4px;
+					border-radius:30px;
+					background:#000;
+					transition:all .35s;
+				}
+				input[id="menuicon"] + label span:nth-child(1) {
+					top:0;
+				}
+				input[id="menuicon"] + label span:nth-child(2) {
+					top:50%;
+					transform:translateY(-50%);
+				}
+				input[id="menuicon"] + label span:nth-child(3) {
+					bottom:0;
+				}
+				input[id="menuicon"]:checked + label span:nth-child(1) {
+					top:50%;
+					transform:translateY(-50%) rotate(45deg);
+				}
+				input[id="menuicon"]:checked + label span:nth-child(2) {
+					opacity:0;
+				}
+				input[id="menuicon"]:checked + label span:nth-child(3) {
+					bottom:50%;
+					transform:translateY(50%) rotate(-45deg);
+				}
+				
+				div[class="sidebar"] {
+					width:500px;
+					height:100%;
+					background:#fff;
+					position:fixed;
+					top:0;
+					left:-500px;
+					z-index:2;
+					transition:all .35s;
+				}
+				input[id="menuicon"]:checked + label + div {
+					left:0;
+				}
+			</style>
 		</head>
 		<body>
+			<input type="checkbox" id="menuicon">
+			<label for="menuicon">
+				<span></span>
+				<span></span>
+				<span></span>
+			</label>
+			<div class="sidebar"></div>
+			
 			<div id="map" style="width:100vw;height:100vh;"></div>
 		
 			<script src="//dapi.kakao.com/v2/maps/sdk.js?appkey=232fd098e3fd826728065d4e271b225f"></script>
