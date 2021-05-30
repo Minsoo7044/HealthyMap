@@ -1,0 +1,159 @@
+* {
+	margin:0;
+	padding:0;
+	box-sizing: border-box;
+}
+
+button {
+	font-size:1em;
+	margin:12px 8px;
+	background-color:transparent;
+	border:none;
+}
+
+.navbar {
+	display:flex;
+	justify-content:space-between;
+	align-items: center;
+	background-color:#263343;
+	color:white;
+	padding: 8px 12px;
+	height: 8vh;
+}
+
+input[id="menuicon"] {
+	display:none;
+}
+input[id="menuicon"] + label {
+	display:block;
+	width:30px;
+	height:25px;
+	position:relative;
+	cursor:pointer;
+	z-index:3;
+}
+input[id="menuicon"] + label span {
+	display:block;
+	position:absolute;
+	width:100%;
+	height:4px;
+	border-radius:30px;
+	background:#fff;
+	transition:all .35s;
+}
+input[id="menuicon"] + label span:nth-child(1) {
+	top:0;
+}
+input[id="menuicon"] + label span:nth-child(2) {
+	top:50%;
+	transform:translateY(-50%);
+}
+input[id="menuicon"] + label span:nth-child(3) {
+	bottom:0;
+}
+input[id="menuicon"]:checked + label span:nth-child(1) {
+	top:50%;
+	transform:translateY(-50%) rotate(45deg);
+}
+input[id="menuicon"]:checked + label span:nth-child(2) {
+	opacity:0;
+}
+input[id="menuicon"]:checked + label span:nth-child(3) {
+	bottom:50%;
+	transform:translateY(50%) rotate(-45deg);
+}
+
+div[class="sidebar"] {
+	width:60%;
+	height:92%;
+	background:#fff;
+	position:fixed;
+	bottom:0;
+	left:-60%;
+	background-color:#aeaeae;
+	border:1px solid #eee;
+	z-index:1;
+	transition:all .35s;
+}
+
+.sidebar {
+	display:flex;
+	flex-direction:column;
+	padding:12px;
+}
+
+.loginbtn {
+	position:absolute;
+	right:0;
+	top:0;
+	padding:0 10px;
+	margin-right:12px;
+	border:1px solid #fff;
+}
+
+.myimg {
+	width:50%;
+	height:100%;
+	object-fit:cover;
+	border-radius:5px;
+}
+
+.myname {
+	margin-left:30px;
+	font-size:1.3em;
+}
+
+.imgandname {
+	display:flex;
+	flex-direction:row;
+	margin-top: 30px;
+	height:30%;
+}
+
+input[id="menuicon"]:checked + label + div {
+	left:0;
+}
+
+.wrapper {
+	height:100%;
+	display:flex;
+	flex-direction:column;
+	text-align:center;
+	justify-content:flex-start;
+}
+
+.sbbtn {
+	height:15%;
+	margin:12px 8px;
+}
+
+#map {
+	width: 100vw;
+	height: 95vh;
+	z-index:0;
+}
+
+div[class="lowbar"] {
+	width:100%;
+	height:45%;
+	background:#fff;
+	position:fixed;
+	left:0;
+	bottom:-45%;
+	background-color:#aeaeae;
+	border:1px solid #eee;
+	z-index:1;
+	transition:all .35s;
+	padding: 8px 12px;
+}
+
+input[id="lowbarbox"]:checked + div {
+	bottom:0;
+}
+
+.facility {
+	display:flex;
+	flex-direction:row;
+	border:1px solid #eee;
+	justify-content:space-between
+}
