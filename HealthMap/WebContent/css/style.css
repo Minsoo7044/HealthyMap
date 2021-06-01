@@ -12,13 +12,16 @@ button {
 }
 
 .navbar {
-	display:flex;
-	justify-content:space-between;
-	align-items: center;
 	background-color:#263343;
 	color:white;
 	padding: 8px 12px;
 	height: 8vh;
+}
+
+.navbar_items {
+	display:flex;
+	justify-content:space-between;
+	align-items: center;
 }
 
 input[id="menuicon"] {
@@ -103,11 +106,12 @@ div[class="sidebar"] {
 	font-size:1.3em;
 }
 
-.imgandname {
+.imgAndName {
 	display:flex;
 	flex-direction:row;
-	margin-top: 30px;
+	padding-top: 2em;
 	height:30%;
+	color:#000;
 }
 
 input[id="menuicon"]:checked + label + div {
@@ -152,8 +156,64 @@ input[id="lowbarbox"]:checked + div {
 }
 
 .facility {
+	height:30%;
 	display:flex;
 	flex-direction:row;
 	border:1px solid #eee;
-	justify-content:space-between
+	justify-content:space-around;
+	margin:1em;
+}
+
+.facilitybtn {
+	border:1px solid #eee;
+	display:block;
+    margin-left:auto;
+    margin-right:5%;
+	padding:0.3em;
+}
+
+.numberAndAddress  {
+	margin:1em;
+	display:flex;
+	flex-direction:column;
+}
+
+#all {
+	height:100vh;
+	width:100vw;
+}
+
+#middleSection {
+	height:60%;
+}
+
+.machine {
+	list-style:none;
+	height:5%;
+	border:1px solid #000;
+	align-items:center;
+	display:flex;
+	flex-direction:row;
+	justify-content:space-around;
+}
+
+.noticeList {
+	height:92vh;
+}
+
+table {
+	width:100%;
+	height:10%;
+	border:1px solid #000;
+	border-collapse: collapse;
+}
+
+table tr th {
+	border:1px solid #000;
+}
+
+.noticeContent {
+	height:auto;
+	padding:1em;
+	border:1px solid #000;
 }

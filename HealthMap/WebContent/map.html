@@ -8,7 +8,7 @@
 <title>헬맵</title>
 </head>
 <body>
-	<nav class="navbar">
+	<nav class="navbar navbar_items">
 		<input type="checkbox" id="menuicon">
 		<label for="menuicon">
 			<span></span>
@@ -17,9 +17,9 @@
 		</label>
 		<div class="sidebar">
 			<button class="loginbtn">로그인</button>
-			<div class="imgandname">
+			<div class="imgAndName">
 				<img class="myimg" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQR7Tj5xwhs3JZx_DmdyfL_wm_zJOIPLCI__Q&usqp=CAU">
-				<div class="myname">이름</div>
+				<span class="myname">이름</span>
 			</div>
 			<div class="wrapper">
 				<button class="sbbtn">내정보</button>
@@ -33,15 +33,14 @@
 	<input type="checkbox" id="lowbarbox">
 	<div class="lowbar">
 		<div class="facility">
-			<div>시설이름</div>
+			<button>시설이름</button>
 			<button><i class="far fa-star"></i>즐겨찾기</button>
 		</div>
-		<div>
-			전화번호 12345678<br>주소 서울시 노원구 노원로12
-		</div>
-		<div>
-			<button>시설상세</button>
-		</div>
+		<div class="numberAndAddress">
+			<span>전화번호 12345678</span><br>
+			<span>주소 서울시 노원구 노원로12</span>
+		</div>	
+		<button class="facilitybtn">시설상세</button>
 	</div>
 	<div id="map"></div>
 </body>
