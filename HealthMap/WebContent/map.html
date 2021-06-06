@@ -16,21 +16,20 @@
 			<span></span>
 		</label>
 		<div class="sidebar">
-			<button class="loginbtn">로그인</button>
+			<button class="logoutbtn" onclick="logout()">로그아웃</button>
 			<div class="imgAndName">
 				<img class="myimg" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQR7Tj5xwhs3JZx_DmdyfL_wm_zJOIPLCI__Q&usqp=CAU">
 				<span class="myname">이름</span>
 			</div>
 			<div class="wrapper">
-				<button class="sbbtn">내정보</button>
-				<button class="sbbtn">나의 즐겨찾기</button>
-				<button class="sbbtn">공지사항</button>
+				<button class="sbbtn" onclick="myInfo()">내정보</button>
+				<button class="sbbtn" onclick="favorite()">나의 즐겨찾기</button>
+				<button class="sbbtn" onclick="notice()">공지사항</button>
 			</div>
 		</div>
 		<div class="logo">헬맵</div>
-		<div><i class="fas fa-search"></i></div>
+		<button></button>
 	</nav>
-	<input type="checkbox" id="lowbarbox">
 	<div class="lowbar">
 		<div class="facility">
 			<button>시설이름</button>
@@ -43,10 +42,13 @@
 		<button class="facilitybtn">시설상세</button>
 	</div>
 	<div id="map"></div>
+	
 </body>
 </html>
 
 <script src="//dapi.kakao.com/v2/maps/sdk.js?appkey=232fd098e3fd826728065d4e271b225f"></script>
+<script src="js/jquery-3.6.0.min.js"></script>
+<script src="js/core.js"></script>
 <script>
 	var mapContainer = document.getElementById('map'), // 지도를 표시할 div 
 	mapOption = {
@@ -103,4 +105,33 @@
 	kakao.maps.event.addListener(marker, 'click', function() {
 		alert('마커를 클릭했습니다!');
 	});
+	
+	$(document).ready(function() {
+		Page.init(setup);
+	});
+
+	var loginId = null;
+	function setup(uid) {
+		loginId = uid;
+		console.log(loginId);
+	}
+	
+	function myInfo() {
+		window.location.href = "user.html";
+	}
+	
+	function favorite() {
+		window.location.href = "favorite.html";
+	}
+	
+	function notice() {
+		window.location.href = "noticeList.html";
+	}
+	
+	function logout() {
+		AJAX.call("jsp/logout.jsp", null, function(data) {
+			alert("로그아웃을 완료하였습니다.");
+			window.location.href = "login.html";
+		});
+	}
 </script>

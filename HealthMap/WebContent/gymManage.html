@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+<head>
+<link rel="stylesheet" type="text/css" href="css/style.css">
+<meta charset="utf-8">
+<meta name=viewport content="width=device-width, initial-scale=1, user-scalable=0">
+<script src="https://kit.fontawesome.com/da8787eeee.js" crossorigin="anonymous"></script>
+<title>회원상세</title>
+</head>
+<body>
+	<div id="all">
+		<nav class="navbar navbar_items">
+			<button style="color: white;" onclick="back()"><i class="fas fa-chevron-left"></i></button>
+			<div>시설관리</div>
+			<button style="color:white;" onclick="gymAdd()"><i class="fas fa-plus-square"></i></button>
+		</nav>
+		<div style="border:1px solid #000; height:30%;">
+			<div class="facility">
+				<button>시설이름</button>
+				<i class="fas fa-trash-alt" style="font-size:1.5em;"></i>
+			</div>
+			<div class="numberAndAddress">
+				<span>전화번호 12345678</span>
+				<span>주소 서울시 노원구 노원로12</span>
+			</div>
+			<button class="facilitybtn" onclick="gymDetailManage()">기구보기</button>			
+		</div>
+	</div>
+</body>
+</html>
+
+<script src="js/jquery-3.6.0.min.js"></script>
+<script src="js/core.js"></script>
+<script>
+function back() {
+	window.history.back();
+}
+
+function gymAdd() {
+	window.location.href = "gymAdd.html";
+}
+
+function gymDetailManage() {
+	window.location.href = "gymDetailManage.html";
+}
+</script>

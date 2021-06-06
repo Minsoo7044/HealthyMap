@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+<head>
+<link rel="stylesheet" type="text/css" href="css/style.css">
+<meta charset="utf-8">
+<meta name=viewport content="width=device-width, initial-scale=1, user-scalable=0">
+<script src="https://kit.fontawesome.com/da8787eeee.js" crossorigin="anonymous"></script>
+<title>즐겨찾기</title>
+</head>
+<body>
+	<div style="height:100vh;">
+		<nav class="navbar navbar_items">
+			<button style="color: white;" onclick="back()"><i class="fas fa-chevron-left"></i></button>
+			<div>시설상세</div>
+			<button></button>
+		</nav>
+		<div style="height:30%; border:1px solid #000;">
+			<div class="facility">
+				<button>시설이름</button>
+				<div>
+					<i class="fas fa-trash-alt" style="font-size:1.5em;"></i>
+					<button style="border:1px solid #000; padding:0.5em;">수정</button>
+				</div>
+			</div>
+			<div class="numberAndAddress">
+				<span>전화번호 12345678</span><br>
+				<span>주소 서울시 노원구 노원로12</span>
+			</div>
+			<button style="float:right; font-size:1.5em; margin:0 1em;"><i class="fas fa-plus-square"></i></button>
+		</div>
+		<ul class="machine">
+			<li><i class="fas fa-dumbbell"></i></li>
+			<li><span>기구이름</span></li>
+			<li><span>수량</span></li>
+			<li><i class="fas fa-trash-alt"></i></li>
+		</ul>	
+		
+		<div class="addMachine">
+			<div class="navbar navbar_items" style="justify-content:space-around";>기구 추가</div>
+			<div class="machine-options">
+				<select name="machines" id="machine-select">
+		   			<option value="">--Please choose an option--</option>
+		    		<option value="dog">Dog</option>
+				    <option value="cat">Cat</option>
+				    <option value="hamster">Hamster</option>
+				    <option value="parrot">Parrot</option>
+				    <option value="spider">Spider</option>
+				    <option value="goldfish">Goldfish</option>
+				</select>
+				<div class="machine-count">
+					<span>수량 : </span>
+					<input type="text" size="2">
+				</div>
+			</div>
+			<button class="button-align">추가하기</button>
+		</div>
+	</div>
+</body>
+</html>
+
+<script src="js/jquery-3.6.0.min.js"></script>
+<script src="js/core.js"></script>
+<script>
+function back() {
+	window.history.back();
+}
+
+function userDetailManage() {
+	window.location.href = "userDetailManage.html";
+}
+</script>

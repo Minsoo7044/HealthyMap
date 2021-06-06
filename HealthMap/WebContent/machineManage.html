@@ -5,21 +5,20 @@
 <meta charset="utf-8">
 <meta name=viewport content="width=device-width, initial-scale=1, user-scalable=0">
 <script src="https://kit.fontawesome.com/da8787eeee.js" crossorigin="anonymous"></script>
-<title>공지사항</title>
+<title>즐겨찾기</title>
 </head>
 <body>
-	<nav class="navbar navbar_items">
+	<div style="height:100vh;">
+		<nav class="navbar navbar_items">
 			<button style="color: white;" onclick="back()"><i class="fas fa-chevron-left"></i></button>
-			<div>공지사항</div>
-			<button></button>
+			<div>기구 관리</div>
+			<button><i class="fas fa-plus-square" style="color:white;"></i></button>
 		</nav>
-	<div class="noticeList">
-		<table>
-			<tr>
-				<th onclick="notice()">제목: 중랑천 공사</th>
-				<th>운영진</th>
-			</tr>
-		</table>
+		<ul class="machine" onclick="machineDetailManage()">
+			<li><i class="fas fa-dumbbell"></i></li>
+			<li><span>기구이름</span></li>
+			<li><span>수량</span></li>
+		</ul>	
 	</div>
 </body>
 </html>
@@ -29,7 +28,7 @@
 		window.history.back();
 	}
 	
-	function notice() {
-		window.location.href = "notice.html";
+	function machineDetailManage() {
+		window.location.href = "machineDetailManage.html";
 	}
 </script>

@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+<head>
+<link rel="stylesheet" type="text/css" href="css/style.css">
+<meta charset="utf-8">
+<meta name=viewport content="width=device-width, initial-scale=1, user-scalable=0">
+<script src="https://kit.fontawesome.com/da8787eeee.js" crossorigin="anonymous"></script>
+<title>회원상세</title>
+</head>
+<body>
+	<nav class="navbar navbar_items">
+			<button style="color: white;" onclick="back()"><i class="fas fa-chevron-left"></i></button>
+			<div>시설추가</div>
+			<button></button>
+		</nav>
+	<div class="gymContent">
+		<div>
+			<span>시설 이름 : </span>
+			<input type="text" placeholder="시설 이름을 입력해주세요.">
+		</div>
+		<div>
+			<span>전화번호 : </span>
+			<input type="text" placeholder="전화번호를 입력해주세요.">
+		</div>
+		<div>
+			<span>주소 : </span>
+			<input type="text" placeholder="주소를 입력해주세요.">
+		</div>
+		<div>
+			<span>주소 x 좌표값 : </span>
+			<input type="text" placeholder="x 좌표값를 입력해주세요.">
+		</div>
+		<div>
+			<span>주소 y 좌표값 : </span>
+			<input type="text" placeholder="y 좌표값를 입력해주세요.">
+		</div>
+	</div>
+	<button class="button-align">추가하기</button>
+</body>
+</html>
+
+<script src="js/jquery-3.6.0.min.js"></script>
+<script src="js/core.js"></script>
+<script>
+function back() {
+	window.history.back();
+}
+
+function gymAdd() {
+	window.location.href = "gymAdd.html";
+}
+</script>
