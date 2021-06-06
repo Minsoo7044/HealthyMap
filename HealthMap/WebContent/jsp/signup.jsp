@@ -6,11 +6,10 @@
 <%@ page import="dao.*"%>
 <%@ page import="util.*"%>
 <%
-   request.setCharacterEncoding("utf-8");
+request.setCharacterEncoding("utf-8");
    
    String jsonstr = null, ufname = null;
    byte[] ufile = null;
-   request.setCharacterEncoding("utf-8");
 
    ServletFileUpload sfu = new ServletFileUpload(new DiskFileItemFactory());
    List items = sfu.parseRequest(request);
@@ -39,7 +38,6 @@
 
    
    if (udao.insert(jsonstr) == true) {
-      session.setAttribute("id", uid);
       out.print("OK");//out.print("회원 가입이 완료되었습니다.");
    } else {
       out.print("ER");//out.print("회원 가입 중 오류가 발생하였습니다.");

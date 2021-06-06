@@ -5,11 +5,11 @@
 
 	String uid = request.getParameter("id");
 	
-	if ((new UserDAO()).exists(uid)) {
-		new UserDAO().delete(uid);
+	if ((new User1DAO()).exists(uid)) {
+		new User1DAO().delete(uid);
 		out.print("OK");
 	}
-	else if (!new UserDAO().exists(uid)) {
+	else if (!new User1DAO().exists(uid)) {
 		out.print("NA");
 	}
 	else {

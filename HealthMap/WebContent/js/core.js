@@ -1,12 +1,12 @@
 var AJAX = {
-	call: function (url, params, func, isfd) {
+	call: function(url, params, func, isfd) {
 		var callobj = {
 			url: url,
 			type: "post",
 			data: params,
 			dataType: "text",
 			success: func,
-			error: function (xhr, status, error) {
+			error: function(xhr, status, error) {
 				if (xhr.status == 0) {
 					alert("네트워크 접속이 원할하지 않습니다.");
 				}
@@ -19,67 +19,74 @@ var AJAX = {
 		if (isfd) {
 			callobj.processData = false;
 			callobj.contentType = false;
+
 		}
 		jQuery.ajax(callobj);
 	}
-};
-
+}
 var Page = {
-	init: function (cbfunc, url) {
+	init: function(cbfunc, url) {
 		AJAX.call("jsp/session.jsp", null, function(data) {
 			var uid = data.trim();
 			if (uid == "null") {
-				alert("로그인이 필요한 서비스입니다.")
+				alert("로그인이 필요한 서비스 입니다.");
 				window.location.href = "login.html";
 			}
 			else {
-			var param = (url == null)? null: SessionStore.get(url);
+				var param = (url == null) ? null : SessionStore.get(url);
 				if (cbfunc != null) cbfunc(uid, param);
 			}
 		});
 	},
-	
-	go: function(url, param) {
+	getUser: function(cbfunc) {
+		AJAX.call("jsp/session.jsp", null, function(data) {
+			var uid = data.trim();
+			AJAX.call("jsp/userGet.jsp", {id:uid}, function(data) {
+				userobj= JSON.parse(data.trim());
+				if (cbfunc != null) cbfunc(userobj);
+			});
+		});
+	},
+	go: function(url, param){
 		SessionStore.set(url, param);
-		window.location.href = url;
+		 window.location.href = url;
 	},
 };
 
+
 var SessionStore = {
-	set:function (name, val) {
+	set: function(name, val) {
 		sessionStorage.setItem(name, JSON.stringify(val));
 	},
-	
-	get:function(name){
+
+	get: function(name) {
 		var str = sessionStorage.getItem(name);
-		return (str == null || str == "null")? null : JSON.parse(str);
+		return (str == null || str == "null") ? null : JSON.parse(str);
 	},
-	
+
 	remove: function(name) {
 		sessionStorage.removeItem(name);
 	},
 };
 
 var DataCache = {
-	set: function (name, data) {
+	set: function(name, data) {
 		var obj = { ts: Date.now(), data: data };
 		SessionStore.set(name, obj);
 	},
-	
-	get: function (name) {
+	get: function(name) {
 		var obj = SessionStore.get(name);
-		if (obj == null) {
+		 if (obj == null) {
 			return null;
 		}
 		var diff = (Date.now() - obj.ts) / 60000;
-		if (diff > 10) {
+		 if (diff > 10) { // if 10 minutes expired
 			SessionStore.remove(name);
 			return null;
 		}
 		return obj.data;
 	},
-	
-	remove: function (name) {
+	remove : function(name){
 		SessionStore.remove(name);
-	}
+	},
 };

@@ -1,5 +1,6 @@
 <%@ page contentType="text/html" pageEncoding="utf-8"%>
-<%@ page import="dao.*" %>
+<%@ page import="dao.*"%>
 <%
-	out.print((new UserDAO()).get(request.getParameter("id")));
+	String uid = request.getParameter("id");
+	out.print((new UserDAO()).get(uid));
 %>

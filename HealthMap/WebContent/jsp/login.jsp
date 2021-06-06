@@ -1,24 +1,23 @@
 <%@ page contentType="text/html" pageEncoding="utf-8"%>
-<%@ page import="dao.UserDAO" %>
+<%@ page import="java.util.*"%>
+<%@ page import="util.*"%>
+<%@ page import="dao.*"%>
 <%
-	request.setCharacterEncoding("utf-8");
+UserDAO udao = new UserDAO();
+	
 	String uid = request.getParameter("id");
 	String upass = request.getParameter("ps");
 	
-	UserDAO dao = new UserDAO();
-	int code = dao.login(uid, upass);
-	if (code == 1) {
-		out.print("NE");
+	String code = udao.login(uid, upass);
+	if (code == "NE") {
+		out.print("NE"); 
 	}
-	else if (code == 2){
+	else if (code == "PE") {
 		out.print("PE");
-	}
-	else if (code == 3){
-		session.setAttribute("id", uid);
-		out.print("AD");
 	}
 	else {
 		session.setAttribute("id", uid);
-		out.print("OK");
+		session.setAttribute("uno", code);
+		out.print("OK"); 
 	}
 %>

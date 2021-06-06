@@ -14,10 +14,10 @@
 			<div>기구 관리</div>
 			<button><i class="fas fa-plus-square" style="color:white;"></i></button>
 		</nav>
-		<ul class="machine" onclick="machineDetailManage()">
-			<li><i class="fas fa-dumbbell"></i></li>
+		<ul class="machine">
 			<li><span>기구이름</span></li>
 			<li><span>수량</span></li>
+			<li><i class="fas fa-trash-alt"></i></li>
 		</ul>	
 	</div>
 </body>
@@ -26,9 +26,5 @@
 <script>
 	function back() {
 		window.history.back();
-	}
-	
-	function machineDetailManage() {
-		window.location.href = "machineDetailManage.html";
 	}
 </script>
