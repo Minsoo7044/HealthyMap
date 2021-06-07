@@ -11,24 +11,29 @@
 	<div id="all">
 		<nav class="navbar navbar_items">
 			<button style="color: white;" onclick="back()"><i class="fas fa-chevron-left"></i></button>
-			<div>기구 관리</div>
-			<button><i class="fas fa-plus-square" style="color:white;" onclick="machineAdd()"></i></button>
+			<div>기구추가</div>
+			<button></button>
 		</nav>
-		<ul class="machine">
-			<li><span>기구이름</span></li>
-			<li><span>수량</span></li>
-			<li><i class="fas fa-trash-alt"></i></li>
-		</ul>	
+		<div class="machine-options">
+			<input type="text" style="font-size:1.5em;" placeholder="기구 이름">
+			<div class="machine-count">
+				<span>수량 : </span>
+				<input type="text" size="2">
+			</div>
+		</div>
+		<button class="button-align">추가하기</button>
 	</div>
 </body>
 </html>
 
+<script src="js/jquery-3.6.0.min.js"></script>
+<script src="js/core.js"></script>
 <script>
-	function back() {
-		window.history.back();
-	}
-	
-	function machineAdd() {
-		window.location.href = "machineAdd.html";
-	}
+function back() {
+	window.history.back();
+}
+
+function userDetailManage() {
+	window.location.href = "userDetailManage.html";
+}
 </script>

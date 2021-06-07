@@ -214,13 +214,17 @@ table tr th {
    height:45vh;
 }
 
-#machine-select {
-   font-size:1.5em;
-}
-
 .machine-options {
     text-align:center;
     margin:1em auto;
+}
+
+#machine-select {
+   font-size:1.2em;
+}
+
+#machine-select option {
+	font-size:0.8em;
 }
 
 .machine-count {
