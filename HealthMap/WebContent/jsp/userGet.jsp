@@ -1,6 +1,11 @@
 <%@ page contentType="text/html" pageEncoding="utf-8"%>
 <%@ page import="dao.*"%>
 <%
-	String uid = request.getParameter("id");
-	out.print((new UserDAO()).get(uid));
+	String unostr = request.getParameter("uno");
+	if(unostr==""){ 
+		out.print("");
+	}else{
+		int uno = Integer.parseInt(unostr);
+		out.print((new UserDAO()).get(uno));
+	}
 %>

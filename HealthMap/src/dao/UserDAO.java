@@ -129,14 +129,14 @@ public class UserDAO {
       }
    }
    
-   public String get(String uid) throws NamingException, SQLException {
+   public String get(int uno) throws NamingException, SQLException {
       Connection conn = ConnectionPool.get();
       PreparedStatement stmt = null;
       ResultSet rs = null;
       try {
-         String sql = "SELECT jsonstr FROM user WHERE id = ?";
+         String sql = "SELECT jsonstr FROM user WHERE uno = ?";
          stmt = conn.prepareStatement(sql);
-         stmt.setString(1, uid);
+         stmt.setInt(1, uno);
          
          rs = stmt.executeQuery();
          

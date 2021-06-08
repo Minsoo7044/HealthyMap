@@ -14,17 +14,7 @@
 			<div>회원 관리 상세</div>
 			<button style="color: white;"><i class="fas fa-trash-alt"></i></button>
 		</nav>
-		<div>
-			<div class="imgAndName">
-				<img class="myimg" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQR7Tj5xwhs3JZx_DmdyfL_wm_zJOIPLCI__Q&usqp=CAU">
-				<span class="myname" style="top: 0;">이름</span>
-			</div>
-			<div class="numberAndAddress">
-				<span>전화번호 010-1111-1111</span><br> 
-				<span>주소 서울특별시 종로구</span><br>
-				<span>생년월일 990103</span>
-			</div>
-		</div>
+		<div id="user"></div>
 	</div>
 </body>
 </html>
@@ -32,6 +22,31 @@
 <script src="js/jquery-3.6.0.min.js"></script>
 <script src="js/core.js"></script>
 <script>
+$(document).ready(function(){
+	var uno = sessionStorage.getItem("uno");
+   AJAX.call("jsp/userGet.jsp", {uno:uno}, function(data) {
+      var user = JSON.parse(data.trim());
+      console.log(user);
+      showUser(user);
+   });
+});
+
+function showUser(user){
+	var str = '';
+	str += '<div>';
+	str += '<div class="imgAndName">';
+	str += '<img class="myimg" src="'+ user.img +'">';
+	str += '<span class="myname" style="top: 0;">'+ user.name +'</span>';
+	str += '</div>';
+	str += '<div class="numberAndAddress">';
+	str += '<span>전화번호 ' + user.tel + '</span><br>';
+	str += '<span>주소 ' + user.address + '</span><br>';
+	str += '<span>생년월일 ' + user.birth + '</span>';
+	str += '</div>';
+	str += '</div>';
+	$("#user").append(str);	
+}
+
 function back() {
 	window.history.back();
 }

@@ -13,20 +13,38 @@
 		<div>공지사항</div>
 		<button></button>
 	</nav>
-	<div class="noticeList">
-		<table>	
-			<tr>
-				<th>제목: 중랑천 공사</th>
-				<th>운영진</th>
-			</tr>
-		</table>
-		<div class="noticeContent">공지사항 내용</div>
-	</div>
+	<div id="notice"></div>
 </body>
 </html>
 
+<script src="js/jquery-3.6.0.min.js"></script>
+<script src="js/core.js"></script>
 <script>
-	function back() {
-		window.history.back();
-	}
+$(document).ready(function(){
+	var nno = sessionStorage.getItem("nno");
+	console.log(nno);
+   AJAX.call("jsp/noticeGet.jsp", {nno:nno}, function(data) {
+      var notice = JSON.parse(data.trim());
+      showNotice(notice);
+   });
+});
+
+function showNotice(notice){
+	console.log(notice);
+	var str = '';
+	str += '<div class="noticeList">';
+	str += '<table>';
+	str += '<tr>';
+	str += '<th >제목: ' + notice.title + '</th>';
+	str += '<th>운영진</th>';
+	str += '</tr>';
+	str += '</table>';
+	str += '<div class="noticeContent">' + notice.content +'</div>';
+	str += '</div>';
+	$("#notice").append(str);	
+}
+
+function back() {
+	window.history.back();
+}
 </script>

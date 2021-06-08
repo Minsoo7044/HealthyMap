@@ -5,20 +5,16 @@
 <meta charset="utf-8">
 <meta name=viewport content="width=device-width, initial-scale=1, user-scalable=0">
 <script src="https://kit.fontawesome.com/da8787eeee.js" crossorigin="anonymous"></script>
-<title>즐겨찾기</title>
+<title>회원관리</title>
 </head>
 <body>
-	<div style="height:100vh;">
+	<div id="all">
 		<nav class="navbar navbar_items">
 			<button style="color: white;" onclick="back()"><i class="fas fa-chevron-left"></i></button>
 			<div>회원관리</div>
 			<button></button>
 		</nav>
-		<ul class="machine" onclick="userDetailManage()">
-			<li><span>이름</span></li>
-			<li><span>전화번호</span></li>
-			<li><i class="fas fa-trash-alt"></i></li>
-		</ul>	
+		<div class="userListView"></div>
 	</div>
 </body>
 </html>
@@ -26,11 +22,33 @@
 <script src="js/jquery-3.6.0.min.js"></script>
 <script src="js/core.js"></script>
 <script>
+var userList = [];
+$(document).ready(function(){
+   AJAX.call("jsp/userListGet.jsp", null, function(data) {
+      userList = JSON.parse(data.trim());
+      var str="";
+      for(var i=0; i < userList.length; i++){
+	      str += showUserList(userList[i]);	  
+      }
+      $(".userListView").append(str);
+   });
+});
+
+function showUserList(user){
+	var str = '';
+	str += '<div class="noticeItem" onclick="userDetailManage(' + user.uno + ')">';
+	str += '<div class="align" style="flex:1; border-right:1px solid #0f0f0f;">' + user.name + '</div>';
+	str += '<div class="align" style="flex:2; border-right:1px solid #0f0f0f;">' + user.tel + '</div>';
+	str += '</div>';
+	return str;	
+}
+
 function back() {
 	window.history.back();
 }
 
-function userDetailManage() {
+function userDetailManage(uno) {
+	sessionStorage.setItem("uno", uno);
 	window.location.href = "userDetailManage.html";
 }
 </script>

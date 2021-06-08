@@ -9,27 +9,45 @@
 </head>
 <body>
 	<nav class="navbar navbar_items">
-			<button style="color: white;" onclick="back()"><i class="fas fa-chevron-left"></i></button>
-			<div>공지사항</div>
-			<button></button>
-		</nav>
-	<div class="noticeList">
-		<table>
-			<tr>
-				<th onclick="notice()">제목: 중랑천 공사</th>
-				<th>운영진</th>
-			</tr>
-		</table>
-	</div>
+		<button style="color: white;" onclick="back()"><i class="fas fa-chevron-left"></i></button>
+		<div>공지사항</div>
+		<button></button>
+	</nav>
+	<div class="noticeListView"></div>
 </body>
 </html>
 
+<script src="js/jquery-3.6.0.min.js"></script>
+<script src="js/core.js"></script>
 <script>
-	function back() {
-		window.history.back();
-	}
-	
-	function notice() {
-		window.location.href = "notice.html";
-	}
+var noticeList = [];
+$(document).ready(function(){
+   AJAX.call("jsp/noticeListGet.jsp", null, function(data) {
+      noticeList = JSON.parse(data.trim());
+      var str="";
+      for(var i=0; i < noticeList.length; i++){
+	      str += showNoticeList(noticeList[i]);	  
+      }
+      $(".noticeListView").append(str);
+   });
+});
+
+function showNoticeList(notice){
+	var str = '';
+	str += '<div class="noticeItem" onclick="notice('+ notice.nno +')">';
+	str += '<div class="align" style="flex:2; border-right:1px solid #0f0f0f;">' + notice.title + '</div>';
+	str += '<div class="align" style="flex:1;">운영진</div>';
+	str += '</div>';
+	return str;	
+}
+
+
+function back() {
+	window.history.back();
+}
+
+function notice(nno) {
+	sessionStorage.setItem("nno", nno);
+	window.location.href = "notice.html";
+}
 </script>
