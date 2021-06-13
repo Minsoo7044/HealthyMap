@@ -14,36 +14,55 @@
 			<div>회원상세</div>
 			<button style="color: white;" onclick="user()">수정</button>
 		</nav>
-		<div>
-			<div class="imgAndName">
-				<img class="myimg" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQR7Tj5xwhs3JZx_DmdyfL_wm_zJOIPLCI__Q&usqp=CAU">
-				<span class="myname" style="top: 0;">이름</span>
-			</div>
-			<div class="numberAndAddress">
-				<span>전화번호 010-1111-1111</span><br> 
-				<span>주소 서울특별시 종로구</span><br>
-				<span>생년월일 990103</span>
-			</div>
-			<button class="facilitybtn" onclick="favorite()">즐겨찾기 더보기</button>
-		</div>
+		<div id="user"></div>
 	</div>
 </body>
 </html>
-
+<script src="js/jquery-3.6.0.min.js"></script>
+<script src="js/core.js"></script>
 <script>
-	function notice() {
-		window.location.href = "notice.html";
-	}
+$(document).ready(function(){
+	var uno = sessionStorage.getItem("uno");
 	
-	function user() {
-		window.location.href = "updateUser.html";
+	if(uno==null){
+		alert("로그인이 필요한 서비스 입니다.");
+		window.location.href = "login.html";
+	}else{
+		AJAX.call("jsp/userGet.jsp", {uno : uno}, function(data) {
+			var userstr = data.trim();
+			var user = JSON.parse(userstr);
+			showUser(user);
+	    });
 	}
-	
-	function favorite() {
-		window.location.href = "favorite.html";
-	}
+});
+function showUser(user){
+	console.log(user);
+	var str = '';
+	str += '<div class="imgAndName">';
+	str += '<img class="myimg" src="./images/'+ user.images[0] +'">';
+	str += '<span class="myname" style="top: 0;">'+ user.name+'</span>';
+	str += '</div>'; // imgAndName
+	str += '<div class="numberAndAddress">';
+	str += '<span>전화번호 '+ user.tel +'</span><br> ';
+	str += '<span>주소 '+ user.address +'</span><br>';
+	str += '<span>생년월일 '+ user.birth +'</span>';
+	str += '</div>';
+	$("#user").html(str);
+}
 
-	function back() {
-		window.history.back();
-	}
+function notice() {
+	window.location.href = "notice.html";
+}
+
+function user() {
+	window.location.href = "updateUser.html";
+}
+
+function favorite() {
+	window.location.href = "favorite.html";
+}
+
+function back() {
+	window.history.back();
+}
 </script>

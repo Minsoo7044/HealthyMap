@@ -1,12 +1,9 @@
-<!DOCTYPE html>
 <html>
 <head>
 <link rel="stylesheet" type="text/css" href="css/style.css">
 <meta charset="utf-8">
-<meta name=viewport
-   content="width=device-width, initial-scale=1, user-scalable=0">
-<script src="https://kit.fontawesome.com/da8787eeee.js"
-   crossorigin="anonymous"></script>
+<meta name=viewport content="width=device-width, initial-scale=1, user-scalable=0">
+<script src="https://kit.fontawesome.com/da8787eeee.js" crossorigin="anonymous"></script>
 
 <title>헬맵</title>
 </head>
@@ -16,7 +13,6 @@
       <i class="fas fa-bars" onclick="menuSet()"></i>
       <div class="logo">헬맵</div>
       <div>
-         <button></button>
       </div>
    </nav>
    <div id="map"></div>
@@ -28,15 +24,15 @@
 <script
    src="//dapi.kakao.com/v2/maps/sdk.js?appkey=de8e60d936f40a074104efc048ff9c40"></script>
 <script>
-var uno = null;
+
 var userobj = null;
 var gymList=[];
 var 데이터 = [];
 $(document).ready(function(){
-   AJAX.call("jsp/map.jsp", null, function(data) {
-      gymList = JSON.parse(data.trim());
-      setData(gymList);
-   });
+	AJAX.call("jsp/map.jsp", null, function(data) {
+	   gymList = JSON.parse(data.trim());
+	   setData(gymList);
+	});
 });
 
 function setData(gymList){
@@ -102,90 +98,114 @@ function currentMove(locPosition) {
 
 // 로우바 버튼 
 function showLowbar(gym){
-   var str =  '';
-   str += '<div class="lowbarOver" onclick="closeLowbar()"></div>';
-   str += '<div class="lowbar">'
-   str += '<div class="facility">';
-   str += '<div>'+ gym.name+'</div> ';
-   if(isFavorite(gym.gno)){
-      str += '<button onclick="cancelFavorite('+ gym.gno +')">*<i class="far fa-star"></i>즐겨찾기</button>';
-   }else{
-      str += '<button onclick="addFavorite('+ gym.gno +')"><i class="far fa-star"></i>즐겨찾기</button>';
-   }
-   str += '</div>'; //facility
-   str += '<div class="numberAndAddress">';
-   str += '<span>전화번호 : '+ gym.tel +'</span><br><span>주소 : '+ gym.address +'</span>';
-   str += '</div>';
-   str += '<div> <button class="facilitybtn" onclick="showGymDetail()">시설상세</button></div> ';
-   str += '</div>'; //lowbar
-   console.log(gym);
-   $("#lowDis").html(str);
+	var uno = sessionStorage.getItem("uno");
+	var str =  '';
+	str += '<div class="lowbarOver" onclick="closeLowbar()"></div>';
+	str += '<div class="lowbar">'
+	str += '<div class="facility">';
+	str += '<div>'+ gym.name+'</div> ';
+	if(uno!=null){
+		if(isFavorite(gym.gno)){
+			str += '<button onclick="cancelFavorite('+ gym.gno +')"><i class="far fa-star" style="color:yellow;"></i>즐겨찾기</button>';
+		}else{
+			str += '<button onclick="addFavorite('+ gym.gno +')"><i class="far fa-star"></i>즐겨찾기</button>';
+		}
+	}else{
+		str += '<button onclick="addFavorite('+ gym.gno +')"><i class="far fa-star"></i>즐겨찾기</button>';
+	}
+	str += '</div>'; //facility
+	str += '<div class="numberAndAddress">';
+	str += '<span>전화번호 : '+ gym.tel +'</span><br><span>주소 : '+ gym.address +'</span>';
+	str += '</div>';
+	str += '<div> <button class="facilitybtn" onclick="showGymDetail('+ gym.gno +')">시설상세</button></div> ';
+	str += '</div>'; //lowbar
+	console.log(gym);
+	$("#lowDis").html(str);
+
 }
 
 function closeLowbar(){
-   var str = "";
-   $("#lowDis").html(str);
+	var str = "";
+	$("#lowDis").html(str);
 }
-function showGymDetail(){
-   window.location.href = "gym.html";
+function showGymDetail(gno){
+	sessionStorage.setItem("gno",gno);
+	window.location.href = "gym.html";
 }  
 function cancelFavorite(gno){
-   var uno = '<%=(String)session.getAttribute("uno")%>';
-   AJAX.call("jsp/favoriteDelete.jsp", {uno:uno,gno:gno}, function(data) {
-      var code = data.trim();
-          if(code == "ER"){
-             alert("즐겨찾기취소중 오류가 발생하였습니다.");
-          }else{
-             alert("즐겨찾기취소가 성공적으로 완료되었습니다..");
-             isFavorite(gno);
-          }
-   });
+	var uno = sessionStorage.getItem("uno");
+	AJAX.call("jsp/favoriteDelete.jsp", {uno:uno,gno:gno}, function(data) {
+		var code = data.trim();
+	       if(code == "ER"){
+	    	   alert("즐겨찾기취소중 오류가 발생하였습니다.");
+	    	   location.reload();
+	       }else{
+	    	   alert("즐겨찾기취소가 성공적으로 완료되었습니다..");
+	    	   location.reload();
+	       }
+	});
 }
 
 function addFavorite(gno){
-
-   uno = sessionStorage.getItem("uno");
-   
+	var uno = sessionStorage.getItem("uno");
+	console.log("session:"+uno);
     AJAX.call("jsp/favoriteAdd.jsp", {uno:uno,gno:gno}, function(data) {
        var code = data.trim();
        if(code == "ER"){
-          alert("즐겨찾기중 오류가 발생하였습니다.");
+    	   alert("즐겨찾기중 오류가 발생하였습니다.");
+    	   location.reload();
        }else{
-          alert("즐겨찾기가 성공적으로 완료되었습니다..");
-          isFavorite(gno);
+    	   alert("즐겨찾기가 성공적으로 완료되었습니다..");
+    	   location.reload();
        }
     });
 }
 
 function isFavorite(gno){
-	uno = sessionStorage.getItem("uno");
-	AJAX.call("jsp/favoriteIs.jsp", {uno:uno,gno:gno}, function(data) {
-	   var code = data.trim();
-	   if(code == "NE") return false;
-	   else return true
-	 });
+	var uno = sessionStorage.getItem("uno");
+	var result;
+	AJAX.call("jsp/favoriteIs.jsp", {uno : uno,gno:gno,result : result}, function(data) {
+		var code = data.trim();
+		console.log(code);
+		if(code == "NE"){ 
+			result = false;
+		}else{
+			result = true;
+		}
+    },false,true);
+	return result;
 }
 
 
-//사이드바
+//메뉴
 function menuSet(){
-    Page.getUser(showSidebar);
+	var uno = sessionStorage.getItem("uno");
+	console.log(uno);
+	AJAX.call("jsp/userGet.jsp", {uno : uno}, function(data) {
+		var user = null;
+		var userstr = data.trim();
+		if(userstr!=""){
+			user = JSON.parse(userstr);
+		}
+		showSidebar(user);
+    });
 }
 
 
 function showSidebar(user){
-   var str = '';
+	var str = '';
     str += '<div class = "sidebar">';
-    if(user.name == null){
-       str += '<button class="loginbtn" onclick = "showLogin()">로그인</button>';
-       str += '<div class="imgAndName">';
-        str += '<img class="myimg" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQR7Tj5xwhs3JZx_DmdyfL_wm_zJOIPLCI__Q&usqp=CAU">';
-        str += '<div class="myname">이름</div>';
+    if(user == null){
+    	 str += '<button class="loginbtn" onclick = "showLogin()">로그인</button>';
+         str += '<div class="imgAndName">';
+         str += '<img class="myimg" src="./images/다운로드.jpeg">';
+         str += '<div class="myname">이름</div>';
     }else{
-       str += '<button class="loginbtn" onclick = "logout()">로그아웃</button>';
-       str += '<div class="imgAndName">';
-        str += '<img class="myimg" src="'+ user.img +'">';
-        str += '<div class="myname">'+ user.name +'</div>';
+    	console.log(user.images[0]);
+    	 str += '<button class="loginbtn" onclick = "logout()">로그아웃</button>';
+         str += '<div class="imgAndName">';
+         str += '<img class="myimg" src="./images/'+user.images[0]+'">';
+         str += '<div class="myname">'+ user.name +'</div>';
     }
     str += '</div>';
     str += '<div class="wrapper">';
@@ -193,18 +213,19 @@ function showSidebar(user){
     str += '<button class="sbbtn" onclick = "showFavorite()">나의 즐겨찾기</button>';
     str += '<button class="sbbtn" onclick = "showNotice()">공지사항</button>';
     str += '</div>';
-    str += '<div class = "sidebarRight" onclick="closeMenu()"></div>';	
+    str += '<div class = "sidebarRight" onclick="closeMenu()"></div>';
     $("#menuap").html(str);
 }
 function logout(){
-   AJAX.call("jsp/logout.jsp", null, function(data) {
-      alert("로그아웃을 완료하였습니다.");
-      window.location.href = "map.html";
-   });
+	AJAX.call("jsp/logout.jsp", null, function(data) {
+		alert("로그아웃을 완료하였습니다.");
+		sessionStorage.removeItem("uno");
+		window.location.href = "map.html";
+	});
 }
 function closeMenu(){
-      var str =""
-      $("#menuap").html(str);
+   var str =""
+   $("#menuap").html(str);
 }
 function showLogin(){
    window.location.href = "login.html";

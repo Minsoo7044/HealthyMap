@@ -3,7 +3,7 @@
 <%@ page import="util.*"%>
 <%@ page import="dao.*"%>
 <%
-  UserDAO udao = new UserDAO();
+  User1DAO udao = new User1DAO();
    String str = udao.getList();
    out.print(str);
 %>

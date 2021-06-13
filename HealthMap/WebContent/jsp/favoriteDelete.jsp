@@ -3,16 +3,15 @@
 <%@ page import="util.*"%>
 <%@ page import="dao.*"%>
 <%
-String gnostr = request.getParameter("gno");
-int gno = Integer.parseInt(gnostr);
-String unostr = request.getParameter("uno");
-int uno = Integer.parseInt(gnostr);
-
-FavoriteDAO fdao = new FavoriteDAO();
-if(fdao.delete(uno, gno)==false){
-	out.print("ER");
-}else{
-	out.print("OK");
-}
-  
+	String gnostr = request.getParameter("gno");
+	int gno = Integer.parseInt(gnostr);
+	String unostr = request.getParameter("uno");
+	int uno = Integer.parseInt(unostr);
+	FavoriteDAO fdao = new FavoriteDAO();
+	if(fdao.delete(uno, gno)==false){
+		out.print("ER");
+	}else{
+		out.print("OK");
+	}
+   
 %>

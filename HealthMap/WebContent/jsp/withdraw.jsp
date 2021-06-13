@@ -3,13 +3,13 @@
 <%
 	request.setCharacterEncoding("utf-8");
 
-	String uid = request.getParameter("id");
-	
-	if ((new User1DAO()).exists(uid)) {
-		new User1DAO().delete(uid);
+	String unostr = request.getParameter("uno");
+	int uno = Integer.parseInt(unostr);
+	if ((new User1DAO()).exists(uno)) {
+		new User1DAO().delete(uno);
 		out.print("OK");
 	}
-	else if (!new User1DAO().exists(uid)) {
+	else if (!new User1DAO().exists(uno)) {
 		out.print("NA");
 	}
 	else {

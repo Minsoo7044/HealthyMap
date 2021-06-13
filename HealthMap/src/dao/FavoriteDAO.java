@@ -67,17 +67,20 @@ public class FavoriteDAO {
 	      }
 	   }
 	//즐겨찾기한 짐리스트 조
-	public String getList() throws SQLException, NamingException {
+	public String getList(int uno) throws SQLException, NamingException {
 	      Connection conn = ConnectionPool.get();
 	      PreparedStatement stmt = null;
 	      ResultSet rs = null;
 	      try {
-	    	  String sql = "SELECT gym.jsonstr FROM favorite RIGHT OUTER JOIN gym on favorite.gno = gym.gno";
+	    	  String sql = "SELECT gym.jsonstr FROM favorite RIGHT OUTER JOIN gym on favorite.gno = gym.gno WHERE uno = ?";
 	    	  stmt = conn.prepareStatement(sql);
+	    	  stmt.setInt(1, uno);
 	    	  rs = stmt.executeQuery();
-	    	  String str = "["; int cnt = 0; while(rs.next()) {
-	    	  if (cnt++ > 0) str += ", ";
-	    	  str += rs.getString("jsonstr"); }
+	    	  String str = "["; int cnt = 0;
+	    	  while(rs.next()) {
+		    	  if (cnt++ > 0) str += ", ";
+		    	  str += rs.getString("jsonstr"); 
+	    	  }
 	    	  return str + "]";
 	      } finally {
 	         if(rs != null) rs.close(); 

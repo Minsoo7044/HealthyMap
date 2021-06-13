@@ -8,39 +8,61 @@
 <title>회원상세</title>
 </head>
 <body>
-	<div id="all">
-		<nav class="navbar navbar_items">
-			<button style="color: white;" onclick="back()"><i class="fas fa-chevron-left"></i></button>
-			<div>시설관리</div>
-			<button style="color:white;" onclick="gymAdd()"><i class="fas fa-plus-square"></i></button>
-		</nav>
-		<div style="border:1px solid #000; height:30%;">
-			<div class="facility">
-				<button>시설이름</button>
-				<i class="fas fa-trash-alt" style="font-size:1.5em;"></i>
-			</div>
-			<div class="numberAndAddress">
-				<span>전화번호 12345678</span><br>
-				<span>주소 서울시 노원구 노원로12</span>
-			</div>
-			<button class="facilitybtn" onclick="gymDetailManage()">시설상세</button>			
-		</div>
-	</div>
+   <div id="all">
+   <nav class="navbar navbar_items">
+   <button style="color: white;" onclick="back()"><i class="fas fa-chevron-left"></i></button>   
+   <div>시설관리</div>
+   <button style="color:white;" onclick="gymAdd()"><i class="fas fa-plus-square"></i></button>
+   </nav>
+<div id = "gymlist"></div>
+</div>
 </body>
-</html>
+
 
 <script src="js/jquery-3.6.0.min.js"></script>
 <script src="js/core.js"></script>
 <script>
+var 데이터 = [];
+$(document).ready(function(){
+   AJAX.call("jsp/gymManage.jsp", null, function(data) {
+      gymList = JSON.parse(data.trim());
+      setData(gymList);
+   });
+});
+
+function setData(gymList){
+   var str = '';
+    for(var i =0; i < gymList.length; i++){
+       str += showGymList(gymList[i]);   
+   }
+    $("#gymlist").append(str);
+};
+
+function showGymList(gymlist){
+   str = '';
+   str += '<div style="border:1px solid #000; height:30%;">';
+   str += '<div class="facility">';
+   str += '<button>'+gymlist.name+'</button>';      
+   str += '</div>';
+   str += '<div class="numberAndAddress">';    
+   str += '<span>'+gymlist.tel+'</span><br>';
+   str += '<span>'+gymlist.address+'</span>';      
+   str += '</div>';
+   str += '<button class="facilitybtn" onclick="gymDetailManage('+gymlist.gno+')">시설상세</button>';         
+   str += '</div>';
+   return str;
+}
+
 function back() {
-	window.history.back();
+   window.history.back();
 }
 
 function gymAdd() {
-	window.location.href = "gymAdd.html";
+   window.location.href = "gymAdd.html";
 }
 
-function gymDetailManage() {
-	window.location.href = "gymDetailManage.html";
+function gymDetailManage(gno) {
+   sessionStorage.setItem("gno", gno);
+   window.location.href = "gymOwn.html";
 }
 </script>

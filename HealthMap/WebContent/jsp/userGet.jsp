@@ -6,6 +6,6 @@
 		out.print("");
 	}else{
 		int uno = Integer.parseInt(unostr);
-		out.print((new UserDAO()).get(uno));
+		out.print((new User1DAO()).get(uno));
 	}
 %>

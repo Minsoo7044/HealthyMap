@@ -9,8 +9,7 @@
 	int uno = Integer.parseInt(unostr);
 	
 	FavoriteDAO fdao = new FavoriteDAO();
-	System.out.println(uno);
-	System.out.println(gno);
+	
 	if(fdao.insert(uno, gno)==false){
 		out.print("ER");
 	}else{

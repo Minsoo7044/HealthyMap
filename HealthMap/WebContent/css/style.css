@@ -1,28 +1,28 @@
 * {
-	margin:0;
-	padding:0;
-	box-sizing: border-box;
+   margin:0;
+   padding:0;
+   box-sizing: border-box;
 }
 
 button {
-	font-size:1em;
-	margin:12px 8px;
-	background-color:transparent;
-	border:none;
+   font-size:1em;
+   margin:12px 8px;
+   background-color:transparent;
+   border:none;
 }
 
 .navbar {
-	background-color:#263343;
-	color:white;
-	padding: 8px 12px;
-	height: 8vh;
+   background-color:#263343;
+   color:white;
+   padding: 8px 12px;
+   height: 8vh;
 }
 
 .navbar_items {
-	display:flex;
-	justify-content:space-between;
-	align-items: center;
-	font-size:1.5em;
+   display:flex;
+   justify-content:space-between;
+   align-items: center;
+   font-size:1.5em;
 }
 
 div[class="sidebar"] {
@@ -49,72 +49,73 @@ div[class="sidebarRight"]{
 }
 
 .loginbtn {
-	position:absolute;
-	right:0;
-	top:0;
-	padding:0 10px;
-	margin-right:12px;
-	border:1px solid #fff;
+   position:absolute;
+   right:0;
+   top:0;
+   padding:0 10px;
+   margin-right:12px;
+   border:1px solid #fff;
 }
 
 .myimg {
-	width:50%;
-	height:100%;
-	object-fit:cover;
-	border-radius:5px;
+   width:50%;
+   height:100%;
+   object-fit:cover;
+   border-radius:5px;
 }
 
 .myname {
-	margin-left:30px;
-	font-size:1.3em;
+   margin-left:30px;
+   font-size:1.3em;
 }
 
 .imgAndName {
-	display:flex;
-	flex-direction:row;
-	padding-top: 2em;
-	height:30%;
-	color:#000;
+   display:flex;
+   flex-direction:row;
+   padding-top: 2em;
+   height:30%;
+   color:#000;
 }
 
 .wrapper {
-	height:100%;
-	display:flex;
-	flex-direction:column;
-	text-align:center;
-	justify-content:flex-start;
+   height:100%;
+   display:flex;
+   flex-direction:column;
+   text-align:center;
+   justify-content:flex-start;
 }
 
 .sbbtn {
-	height:15%;
-	margin:12px 8px;
+   height:15%;
+   margin:12px 8px;
+   font-size:1.5em;
 }
 
 #map {
-	width: 100vw;
-	height: 92vh;
-	z-index:0;
+   width: 100vw;
+   height: 92vh;
+   z-index:0;
 }
 
 div[class="lowbar"] {
-	width:100%;
-	height:45%;
-	background:#fff;
-	position:fixed;
-	left:0;
-	bottom: 0;
-	background-color:#aeaeae;
-	border:1px solid #eee;
-	z-index:1;
-	padding: 8px 12px;
+   width:100%;
+   height:45%;
+   background:#fff;
+   position:fixed;
+   left:0;
+   bottom: 0;
+   background-color:#aeaeae;
+   border:1px solid #eee;
+   z-index:1;
+   padding: 8px 12px;
 }
 
 div [class="lowbarOver"]{
-	width:100%;
-	height:47%;
-	position:fixed;
-	left:0;
-	top: 8vh;
+   width:100%;
+   height:47%;
+   position:fixed;
+   left:0;
+   top: 8vh;
 }
 
 
@@ -130,11 +131,11 @@ div [class="lowbarOver"]{
 }
 
 .facilitybtn {
-	border:1px solid #eee;
-	display:block;
-	margin-left:auto;
-	margin-right:5%;
-	padding:0.3em;
+   border:1px solid #eee;
+   display:block;
+   margin-left:auto;
+   margin-right:5%;
+   padding:0.3em;
 }
 
 .numberAndAddress  {
@@ -180,15 +181,15 @@ table tr th {
 
 .noticeItem {
     display:flex;
-	font-size:1.5em;
-	height:10vh;
-	border:1px solid #0f0f0f;
+   font-size:1.5em;
+   height:10vh;
+   border:1px solid #0f0f0f;
 }
 
 .align {
-	display:flex;
-	justify-content:space-around;
-	align-items:center;
+   display:flex;
+   justify-content:space-around;
+   align-items:center;
 }
 
 .noticeContent {
@@ -206,10 +207,11 @@ table tr th {
 
 .adminMain div {
    flex:1;
-    line-height:160px;
-   text-align:center;
+   display: flex;
+   justify-content: space-around;
+   align-items: center;
    font-size:2em;
-    border:1px solid #000; 
+   border:1px solid #000; 
 }
 
 .machineContent {
@@ -237,7 +239,7 @@ table tr th {
 }
 
 #machine-select option {
-	font-size:0.8em;
+   font-size:0.8em;
 }
 
 .machine-count {
@@ -254,9 +256,10 @@ table tr th {
 }
 
 .gymContent div {
-   margin:1em
+   margin:1em;
+   font-size:1.3em;
 }
 
 .favBox {
-	border:1px solid #000;
+   border:1px solid #000;
 }

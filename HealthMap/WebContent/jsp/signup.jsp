@@ -32,9 +32,8 @@ request.setCharacterEncoding("utf-8");
       }
    }
    
-   String uid = request.getParameter("id");
    
-   UserDAO udao = new UserDAO();
+   User1DAO udao = new User1DAO();
 
    
    if (udao.insert(jsonstr) == true) {

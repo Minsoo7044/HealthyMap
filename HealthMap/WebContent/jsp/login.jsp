@@ -3,7 +3,7 @@
 <%@ page import="util.*"%>
 <%@ page import="dao.*"%>
 <%
-UserDAO udao = new UserDAO();
+User1DAO udao = new User1DAO();
 	
 	String uid = request.getParameter("id");
 	String upass = request.getParameter("ps");
@@ -15,9 +15,10 @@ UserDAO udao = new UserDAO();
 	else if (code == "PE") {
 		out.print("PE");
 	}
+	else if (code == "AD") {
+		out.print("AD");
+	}
 	else {
-		session.setAttribute("id", uid);
-		session.setAttribute("uno", code);
-		out.print("OK"); 
+		out.print(code); 
 	}
 %>

@@ -48,22 +48,26 @@ public class OwnDAO {
 	      }
 	}
 	// 짐이 가지고 있는 기구리스트 조회
-	public String getList() throws SQLException, NamingException {
-	      Connection conn = ConnectionPool.get();
-	      PreparedStatement stmt = null;
-	      ResultSet rs = null;
-	      try {
-	    	  String sql = "SELECT machine.jsonstr FROM own AND machine on own.gno = machine.gno";
-	    	  stmt = conn.prepareStatement(sql);
-	    	  rs = stmt.executeQuery();
-	    	  String str = "["; int cnt = 0; while(rs.next()) {
-	    	  if (cnt++ > 0) str += ", ";
-	    	  str += rs.getString("jsonstr"); }
-	    	  return str + "]";
-	      } finally {
-	         if(rs != null) rs.close(); 
-	         if(stmt != null) stmt.close(); 
-	         if(conn != null) conn.close();
-	      }
-	   }
+	
+	public String getList(int gno) throws SQLException, NamingException {
+        Connection conn = ConnectionPool.get();
+        PreparedStatement stmt = null;
+        ResultSet rs = null;
+        try {
+           String sql = "SELECT machine.jsonstr FROM own RIGHT OUTER JOIN machine ON own.mno = machine.mno WHERE gno = ?";
+           stmt = conn.prepareStatement(sql);
+           stmt.setInt(1, gno);
+           rs = stmt.executeQuery();
+           String str = "["; int cnt = 0;
+           while(rs.next()) {
+              if (cnt++ > 0) str += ", ";
+              str += rs.getString("jsonstr"); 
+           }
+           return str + "]";
+        } finally {
+           if(rs != null) rs.close(); 
+           if(stmt != null) stmt.close(); 
+           if(conn != null) conn.close();
+        }
+     }
 }

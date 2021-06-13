@@ -77,6 +77,8 @@ public class NoticeDAO {
 			stmt = conn.prepareStatement(sql);
 			rs = stmt.executeQuery();
 			
+			JSONArray feeds = new JSONArray();
+			
 			String str = "[";
 			int cnt = 0;
 			while(rs.next()) {
@@ -98,16 +100,20 @@ public class NoticeDAO {
 			String sql = "SELECT jsonstr FROM notice WHERE nno = ?";
 			
 			stmt = conn.prepareStatement(sql);
-			stmt.setInt(1, nno);
+			stmt.setInt(1,nno);
 			rs = stmt.executeQuery();
-			if(rs.next()) return rs.getString("jsonstr");
-			 
+			
+			
+			String str = "";
+			while(rs.next()) {
+				str += rs.getString("jsonstr"); 
+			}
+			return str;
 		} finally {
 			if(rs != null) rs.close(); 
 			if(stmt != null) stmt.close(); 
 			if(conn != null) conn.close();
 		}
-		return null;
-	}	
+	}
 		
 }

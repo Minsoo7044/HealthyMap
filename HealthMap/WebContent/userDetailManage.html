@@ -12,7 +12,7 @@
 		<nav class="navbar navbar_items">
 			<button style="color: white;"><i class="fas fa-chevron-left" onclick="back()"></i></button>
 			<div>회원 관리 상세</div>
-			<button style="color: white;"><i class="fas fa-trash-alt"></i></button>
+			<button onclick ="deleteUser()" style="color: white;"><i class="fas fa-trash-alt"></i></button>
 		</nav>
 		<div id="user"></div>
 	</div>
@@ -35,7 +35,7 @@ function showUser(user){
 	var str = '';
 	str += '<div>';
 	str += '<div class="imgAndName">';
-	str += '<img class="myimg" src="'+ user.img +'">';
+	str += '<img class="myimg" src="./images/'+ user.images[0] +'">';
 	str += '<span class="myname" style="top: 0;">'+ user.name +'</span>';
 	str += '</div>';
 	str += '<div class="numberAndAddress">';
@@ -46,7 +46,24 @@ function showUser(user){
 	str += '</div>';
 	$("#user").append(str);	
 }
-
+function deleteUser(){
+	var uno = sessionStorage.getItem("uno");
+	var url ="jsp/withdraw.jsp";
+	AJAX.call(url, {uno:uno}, function(data) {
+		var code = data.trim();
+		if(code == "OK") {
+			sessionStorage.removeItem("uno");
+			alert("회원 삭제가 완료되었습니다.");
+			back();
+		}
+		else if (code == "NA") {
+			alert("회원 정보를 찾을 수 없습니다.");
+		}
+		else { 
+			alert("회원 삭제중 처리 중 오류가 발생하였습니다.");
+		}
+	});
+}
 function back() {
 	window.history.back();
 }

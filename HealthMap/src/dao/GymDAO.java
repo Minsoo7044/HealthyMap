@@ -90,6 +90,24 @@ public class GymDAO {
 		}
 	}
 	
-	
+	public String get(int gno) throws NamingException, SQLException {
+	      Connection conn = ConnectionPool.get();
+	      PreparedStatement stmt = null;
+	      ResultSet rs = null;
+	      try {
+	         String sql = "SELECT jsonstr FROM gym WHERE gno = ?";
+	         stmt = conn.prepareStatement(sql);
+	         stmt.setInt(1, gno);
+	         
+	         rs = stmt.executeQuery();
+	         
+	         return rs.next() ? rs.getString("jsonstr") : "{}";
+	         
+	      } finally {
+	         if (rs != null) rs.close();
+	         if (stmt != null) stmt.close(); 
+	         if (conn != null) conn.close();
+	      }
+	}
 	
 }
