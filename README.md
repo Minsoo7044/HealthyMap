@@ -1,5 +1,7 @@
-# 헬맵
-## 카카오맵을 활용하여 실외운동시설을 보여주는 웹앱
+# 헬맵  
+
+
+> 카카오맵 api를 활용하여 실외운동시설을 보여주는 웹앱
 
 
 ### 주요기능
@@ -33,16 +35,21 @@
 |공지사항|공지사항 상세|
 
 
-
-
 ## 관리자 화면
-1. 홈
-2. 시설관리
-3. 시설 상세
-4. 시설 추가
-5. 회원 관리
-6. 회원 관리 상세
-7. 기구 관리
-8. 기구 추가
-9. 공지사항
-10. 공지사항 상세
+
+|![image](https://user-images.githubusercontent.com/72515525/152982720-2c46fc34-4bf7-41eb-b072-7f9cdc29aaa9.png)|![image](https://user-images.githubusercontent.com/72515525/152982749-95096347-d421-49df-bf7c-e0caee0c7f6b.png)|![image](https://user-images.githubusercontent.com/72515525/152982764-abb2f918-af06-4cbe-b1e7-e7075b30a531.png)|
+|:--:|:--:|:--:|
+|홈|시설관리|시설상세|
+
+|![image](https://user-images.githubusercontent.com/72515525/152982785-8b73fa80-1451-4aae-ad20-f46da5083378.png)|![image](https://user-images.githubusercontent.com/72515525/152982825-8d6a6d8e-2950-41f6-a203-345eef6ef7bd.png)|![image](https://user-images.githubusercontent.com/72515525/152982876-3daa1ca4-b6c4-4d0a-a935-3881509436df.png)|
+|:--:|:--:|:--:|
+|시설추가|회원관리|회원관리 상세|
+
+|![image](https://user-images.githubusercontent.com/72515525/152982911-ebd85dac-ff5c-4c42-8298-ebbd9303f902.png)|![image](https://user-images.githubusercontent.com/72515525/152982947-9dbc9c93-9d23-462d-ba07-7e32a0d593d3.png)|![image](https://user-images.githubusercontent.com/72515525/152982982-a1b77645-5b2f-4e2a-b4ce-e7b2b5b5fb08.png)|
+|:--:|:--:|:--:|
+|기구관리|기구추가|공지사항|
+
+|![image](https://user-images.githubusercontent.com/72515525/152983003-c6d467f9-d6fd-4d7b-8f6c-1238a357e4ea.png)|
+|:--:|
+|공지사항 상세|
+
