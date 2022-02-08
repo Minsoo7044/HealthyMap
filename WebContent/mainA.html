@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+<head>
+<link rel="stylesheet" type="text/css" href="css/style.css">
+<meta charset="utf-8">
+<meta name=viewport content="width=device-width, initial-scale=1, user-scalable=0">
+<script src="https://kit.fontawesome.com/da8787eeee.js" crossorigin="anonymous"></script>
+<title>헬맵</title>
+</head>
+<body>
+	<div style="height:100vh;">
+		<nav class="navbar navbar_items">
+			<button onclick="logoutAdmin()" style="color:white">로그아웃</button>
+			<div class="logo">헬맵</div>
+			<button style="color:#263343;">로그아웃</button>
+		</nav>
+		<div class="adminMain">
+			<div onclick="gymManage()">시설관리</div>
+			<div onclick="userManage()">회원관리</div>
+			<div onclick="machineManage()">기구 관리</div>
+			<div onclick="noticeManage()">공지사항 관리</div>
+		</div>
+	</div>
+</body>
+</html>
+
+<script src="js/jquery-3.6.0.min.js"></script>
+<script src="js/core.js"></script>
+<script>
+var uno = null;
+$(document).ready(function(){
+	uno = sessionStorage.getItem("uno");
+	if(uno!="1"){
+		alert("일반 회원은 들어 올 수 없습니다.");
+		window.location.href = "map.html";
+	}
+});
+function gymManage() {
+	window.location.href = "gymManage.html";
+}
+
+function userManage() {
+	window.location.href = "userManage.html";
+}
+
+function machineManage() {
+	window.location.href = "machineManage.html";
+}
+
+function noticeManage() {
+	window.location.href = "noticeManage.html";
+}
+
+function logoutAdmin(){
+	alert("로그아웃을 완료하였습니다.");
+	sessionStorage.removeItem("uno");
+	window.location.href = "map.html";
+}
+
+</script>

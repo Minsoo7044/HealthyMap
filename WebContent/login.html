@@ -1,0 +1,85 @@
+<html>
+<head>
+<meta name=viewport content="width=device-width, initial-scale=1, user-scalable=0">
+<meta charset="utf-8">
+<link rel="stylesheet" href="css/core.css">
+<script src="https://kit.fontawesome.com/da8787eeee.js" crossorigin="anonymous"></script>
+<link rel="stylesheet" type="text/css" href="css/style.css">
+<title>MySNS</title>
+<style>
+.desc {
+	float:left;
+	width:100%;
+	font-size:0.9em;
+	color: rgb(80, 80, 80);
+}
+
+</style>
+</head>
+<body>
+	<img class="skyimg" src="https://ifh.cc/g/aqkyxk.jpg"/>
+	<nav class="navbar navbar_items">
+			<button style="color: white;" onclick="back()"><i class="fas fa-chevron-left"></i></button>
+			<div>로그인</div>
+			<button></button>
+	</nav>
+	<div class="page-body" style="z-index: 2; position: absolute">
+		<div class="section pad-24 mtop-30">
+			<input id="id" type="text" placeholder="아이디 (이메일주소)">
+			<input id="ps" type="password" class="mtop-10" placeholder="패스워드">
+			<input type="submit" class="mtop-20" value="로그인하기" onclick="login()">
+		</div>
+		<div class="section pad-24 mtop-30">
+			<div class="desc mtop-20 mbot-20">
+				아이디가 없으세요?
+				간단한 가입 절차를 통해 헬맵의 회원이 되실 수 있습니다.
+			</div>
+			<a href="signup.html"><div class="button">회원가입하기</div></a>
+		</div>
+	</div>
+</body>
+</html>
+
+<script src="js/jquery-3.6.0.min.js"></script>
+<script src="js/core.js"></script>
+<script>
+function login() {
+	var id = $("#id").val().trim();
+	if(id == "") {
+		alert("아이디를 입력해 주세요.");
+		$("#id").focus();
+		return;
+	}
+	
+	var ps = $("#ps").val().trim();
+	if(ps == "") {
+		alert("패스워드를 입력해 주세요.");
+		$("#ps").focus();
+		return;
+	}
+	
+	var url ="jsp/login.jsp?id=" + id + "&ps=" + ps;
+	AJAX.call(url, null, function(data) {
+		var code = data.trim();
+		if(code == "NE") {
+			alert("아이디가 존재하지 않습니다.");
+		}
+		else if (code == "PE") {
+			alert("패스워드가 일치하지 않습니다.");
+		}
+		else if (code == "AD") {
+			sessionStorage.setItem("uno","1");
+			window.location.href = "mainA.html";
+		}
+		else {
+			sessionStorage.setItem("uno",code);
+			window.location.href = "map.html";
+		}
+	});
+}
+
+function back() {
+	window.history.back();
+}
+
+</script>

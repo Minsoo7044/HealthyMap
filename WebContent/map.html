@@ -1,0 +1,282 @@
+<html>
+<head>
+<link rel="stylesheet" type="text/css" href="css/style.css">
+<meta charset="utf-8">
+<meta name=viewport content="width=device-width, initial-scale=1, user-scalable=0">
+<script src="https://kit.fontawesome.com/da8787eeee.js" crossorigin="anonymous"></script>
+<style>
+button {
+	color:white;
+}
+</style>
+<title>헬맵</title>
+</head>
+<body>
+  
+   <nav class="navbar navbar_items">
+      <i class="fas fa-bars" onclick="menuSet()"></i>
+      <div class="logo">헬맵</div>
+      <div>
+      </div>
+   </nav>
+   
+   <div id="map"></div>
+    <div id="menuap"></div>
+   <div id="lowDis"></div>
+</body>
+</html>
+<script src="js/jquery-3.6.0.min.js" charset="UTF-8"></script>
+<script src="js/core.js" charset="UTF-8"></script>
+<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=ab16ad7b4856457ef42931abc7b32e7d"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.8.0/gsap.min.js" integrity="sha512-eP6ippJojIKXKO8EPLtsUMS+/sAGHGo1UN/38swqZa1ypfcD4I0V/ac5G3VzaHfDaklFmQLEs51lhkkVaqg60Q==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script>
+
+var userobj = null;
+var gymList=[];
+
+$(document).ready(function(){
+	AJAX.call("jsp/map.jsp", null, function(data) {
+	   gymList = JSON.parse(data.trim());
+	   setData(gymList);
+	});
+});
+
+function setData(gymList){
+	var 데이터 = [];
+    for(var i =0; i < gymList.length; i++){
+      데이터[i] = new Array(3);
+      데이터[i][0] = gymList[i].x;
+      데이터[i][1] = gymList[i].y;
+      데이터[i][2] = gymList[i];
+      makeMarker(데이터[i]);
+    }
+}
+
+var mapContainer = document.getElementById('map'), // 지도를 표시할 div 
+mapOption = {
+   center : new kakao.maps.LatLng(37.643362, 127.105596), // 지도의 중심좌표
+   level : 5
+// 지도의 확대 레벨 
+};
+
+var map = new kakao.maps.Map(mapContainer, mapOption); // 지도를 생성합니다
+
+function makeMarker(데이터){
+      // 지도에 마커를 생성하고 표시한다
+      var marker = new kakao.maps.Marker({
+         position : new kakao.maps.LatLng(데이터[0], 데이터[1]), // 마커의 좌표
+         map : map,
+         title : JSON.stringify(데이터[2])
+      // 마커를 표시할 지도 객체
+      });
+      kakao.maps.event.addListener(marker, 'click', function() {
+    	 console.log(데이터);
+         var gymstr = marker.getTitle();
+         var gymobj = JSON.parse(gymstr);
+         showLowbar(gymobj);
+      });
+   
+}
+
+   
+//HTML5의 geolocation으로 사용할 수 있는지 확인합니다 
+if (navigator.geolocation) {
+   // GeoLocation을 이용해서 접속 위치를 얻어옵니다
+   navigator.geolocation.getCurrentPosition(function(position) {
+		console.log(2);
+      var lat = position.coords.latitude; // 위도
+      var lon = position.coords.longitude; // 경도
+         
+      var locPosition = new kakao.maps.LatLng(lat, lon);// 마커가 표시될 위치를 geolocation으로 얻어온 좌표로 생성합니다
+      // 인포윈도우에 표시될 내용입니다
+      // 마커와 인포윈도우를 표시합니다
+      currentMove(locPosition);
+
+   });
+
+} else { // HTML5의 GeoLocation을 사용할 수 없을때 마커 표시 위치와 인포윈도우 내용을 설정합니다
+   var locPosition = new kakao.maps.LatLng(33.450701, 126.570667);
+   currentMove(locPosition);
+}
+
+function currentMove(locPosition) {
+   map.setCenter(locPosition);
+}
+
+
+// 로우바 버튼 
+function showLowbar(gym){
+	
+	
+	var uno = sessionStorage.getItem("uno");
+	var str =  '';
+	str += '<div class="lowbarOver" onclick="closeLowbar()"></div>';
+	str += '<div class="lowbar">'
+	str += '<div class="facility">';
+	str += '<div>'+ gym.name+'</div> ';
+	if(uno!=null){
+		if(isFavorite(gym.gno)){
+			str += '<button onclick="cancelFavorite('+ gym.gno +')"><i class="fas fa-star" style="color:yellow;"></i>즐겨찾기</button>';
+		}else{
+			str += '<button onclick="addFavorite('+ gym.gno +')"><i class="fas fa-star"></i>즐겨찾기</button>';
+		}
+	}else{
+		str += '<button onclick="addFavorite('+ gym.gno +')"><i class="fas fa-star"></i>즐겨찾기</button>';
+	}
+	str += '</div>'; //facility
+	str += '<div class="numberAndAddress">';
+	str += '<span>전화번호 : '+ gym.tel +'</span><br><span>주소 : '+ gym.address +'</span>';
+	str += '</div>';
+	str += '<div> <button class="facilitybtn" onclick="showGymDetail('+ gym.gno +')">시설상세</button></div> ';
+	str += '</div>'; //lowbar
+	$("#lowDis").html(str);
+	gsap.from('.lowbar', {y: 500, ease: Power4, duration: 0.4})
+}
+
+function closeLowbar(){
+    gsap.to('.lowbar', {y: 400, ease: Power4, duration: 0.4})
+    setTimeout(function () {
+        var str = "";
+        $("#lowDis").html(str);
+    }, 300)
+}
+function showGymDetail(gno){
+	sessionStorage.setItem("gno",gno);
+	window.location.href = "gym.html";
+}  
+function cancelFavorite(gno){
+	var uno = sessionStorage.getItem("uno");
+	AJAX.call("jsp/favoriteDelete.jsp", {uno:uno,gno:gno}, function(data) {
+		var code = data.trim();
+	       if(code == "ER"){
+	    	   alert("즐겨찾기취소중 오류가 발생하였습니다.");
+	    	   location.reload();
+	       }else{
+	    	   alert("즐겨찾기취소가 성공적으로 완료되었습니다..");
+	    	   location.reload();
+	       }
+	});
+}
+
+function addFavorite(gno){
+	var uno = sessionStorage.getItem("uno");
+	if(uno == null){
+		alert("로그인이 필요한 서비스 입니다.");
+		showLogin();
+	}
+	else{
+	    AJAX.call("jsp/favoriteAdd.jsp", {uno:uno,gno:gno}, function(data) {
+	       var code = data.trim();
+	       if(code == "ER"){
+	    	   alert("즐겨찾기중 오류가 발생하였습니다.");
+	       }else{
+	    		alert("즐겨찾기가 성공적으로 완료되었습니다..");
+	    		showFavorite();
+	       }
+	    });
+	}
+}
+
+function isFavorite(gno){
+	var uno = sessionStorage.getItem("uno");
+	var result;
+	AJAX.call("jsp/favoriteIs.jsp", {uno : uno,gno:gno,result : result}, function(data) {
+		var code = data.trim();
+		console.log(code);
+		if(code == "NE"){ 
+			result = false;
+		}else{
+			result = true;
+		}
+    },false,true);
+	return result;
+}
+
+
+//메뉴
+function menuSet(){
+	var uno = sessionStorage.getItem("uno");
+	console.log(uno);
+	AJAX.call("jsp/userGet.jsp", {uno : uno}, function(data) {
+		var user = null;
+		var userstr = data.trim();
+		if(userstr!=""){
+			user = JSON.parse(userstr);
+		}
+		showSidebar(user);
+    });
+	gsap.to('.fas', {rotate: 90, duration: 0.2})
+}
+
+
+function showSidebar(user){
+	var str = '';
+	$("#lowDis").html(str);
+    str += '<div class = "sidebar">';
+    if(user == null){
+    	 str += '<button class="loginbtn" onclick = "showLogin()">로그인</button>';
+         str += '<div class="imgAndName">';
+         str += '<img class="myimg" src="./images/default.png">';
+         str += '<div class="myname">이름</div>';
+    }else{
+    	 str += '<button class="loginbtn" onclick = "logout()">로그아웃</button>';
+         str += '<div class="imgAndName">';
+         var decodeStr = decodeURIComponent(user.images[0]);
+         console.log(decodeStr);
+         str += '<img class="myimg" src="./images/'+ decodeStr +'">';
+         str += '<div class="myname">'+ user.name +'</div>';
+         
+    }
+    str += '</div>';
+    str += '<div class="wrapper">';
+    str += '<button class="sbbtn" onclick = "showUserDetail()">내 정보</button>';
+    str += '<button class="sbbtn" onclick = "showFavorite()">나의 즐겨찾기</button>';
+    str += '<button class="sbbtn" onclick = "showNotice()">공지사항</button>';
+    str += '</div>';
+    str += '</div>';
+    str += '<div class = "sidebarRight" onclick="closeMenu()"></div>';
+    $("#menuap").html(str);
+    gsap.from('.sidebar', {x: -400, ease: Power4, duration: 0.4})
+}
+function logout(){
+	alert("로그아웃을 완료하였습니다.");
+	sessionStorage.removeItem("uno");
+	window.location.href = "map.html";
+}
+function closeMenu(){
+	gsap.to('.sidebar', {x: -400, ease: Power4, duration: 0.4})
+	gsap.to('.fas', {rotate: 0, duration: 0.2})
+	setTimeout(function () {
+	    var str =""
+	    $("#menuap").html(str);
+	}, 300)
+}
+
+function showLogin(){
+   window.location.href = "login.html";
+}
+
+function showUserDetail() {
+	var uno = sessionStorage.getItem("uno");
+	if(uno ==null){
+		alert("로그인이 필요한 서비스 입니다.");
+		showLogin();
+	}else{
+		window.location.href = "user.html";  
+	}
+}
+
+function showFavorite(){
+	var uno = sessionStorage.getItem("uno");
+	if(uno ==null){
+		alert("로그인이 필요한 서비스 입니다.");
+		showLogin();
+	}else{
+		window.location.href = "favorite.html";
+	}
+}
+
+function showNotice(){
+   window.location.href = "noticeList.html";
+}
+ </script>
